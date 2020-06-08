@@ -43,7 +43,7 @@ void	ft_init(t_data *img)
 	
 	img->planeX = 0.66;
     img->planeY = 0;
-	img->moveSpeed = 0.1;
+	img->moveSpeed = 0.05;
     img->rotSpeed = 0.1;
 
 	img->side_hited = 0;

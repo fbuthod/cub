@@ -14,11 +14,11 @@
 
 void move(t_data *img)
 {
-    printf("%d\n", img->nb_down_key);
-    if (img->nb_down_key >= 2)
+    /*if (img->nb_down_key >= 2)
         img->moveSpeed = img->moveSpeed / 2;
+    
     else
-        img->moveSpeed = 0.1;
+        img->moveSpeed = 0.1;*/
     if (img->move_down == 1)
     {
         if(img->worldMap[(int)(img->posY - img->dirY * img->moveSpeed)][(int)(img->posX)] == '0')

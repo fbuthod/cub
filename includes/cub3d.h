@@ -96,6 +96,7 @@ typedef struct  s_data
 	char		*cardinal;
 
 	char		side_hited;
+
 }				t_data;
 
 //int		main();
@@ -158,7 +159,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		event_key_up(int keycode, t_data *img);
 int		event_key_down(int keycode, t_data *img);
 void    event_key( int keycode, t_data *img, int code);
-void    calculate(t_data *img);
+int    calculate(t_data *img);
 void    move(t_data *img);
 
 #endif
