@@ -52,10 +52,6 @@ int		event_key_up(int keycode, t_data *img)
 
 int	calculate(t_data *img)
 {
-	printf("DirX = %f\n", img->dirX);
-	printf("DirY = %f\n", img->dirY);
-	printf("PlaneX = %f\n", img->planeX);
-	printf("PlaneY = %f\n", img->planeY);
 	move(img);
 	ft_img_dark(img);
     mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);

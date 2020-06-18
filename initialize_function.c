@@ -55,12 +55,18 @@ void	ft_init(t_data *img)
 	img->rotation_right = 0;
 	img->move_directional_left = 0;
     img->move_directional_right = 0;
+	img->south = "./texture/bluestone.xpm";
+	img->north = "./texture/eagle.xpm";
+	img->east = "./texture/greystone.xpm";
+	img->west = "./texture/redbrick.xpm";
+	img->sprite = NULL;
+	img->texWidth = -1;
+	img->texHeight = -1;
+	img->tracked = 0;
 }
 
 void	parse_init(t_data *img)
 {
-	img->sWidth = 600;
-	img->sHeight = 400;
 	img->path_to_north_texture = NULL;
 	img->path_to_south_texture = NULL;
 	img->path_to_west_texture = NULL;
@@ -140,4 +146,21 @@ void	window_init(t_data *img)
     img->img = mlx_new_image(img->mlx, img->sWidth, img->sHeight);
     img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 								&img->line_length, &img->endian);
+}
+
+void	init_colors(t_data *img)
+{
+	t_color	color;
+
+	color.argb[3] = 0;
+
+	color.argb[0] = -78;
+	color.argb[1] = 34;
+	color.argb[2] = 34;
+	img->color_floor = color.color;
+	
+	color.argb[0] = -16;
+	color.argb[1] = -128;
+	color.argb[2] = -128;
+	img->color_ceiling = color.color;
 }

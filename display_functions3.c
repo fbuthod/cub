@@ -18,7 +18,7 @@ void	color_wall(t_data *img)
 
 	i = img->worldMap[img->mapY][img->mapX];
 	if (i == '1')
-		img->color = 0x9E0E40;
+		img->color = 0xFF0000;
 	if (img->side == 1)
 		img->color = img->color >> 2;
 }
@@ -44,39 +44,54 @@ void	verLine(t_data *img)
 		y++;
 	}
 }
-// void	color_wall(t_data *img)
-// {
-// 	if (img->side_hited == 'N')
-// 		img->color = 4876733;
-// 	else if (img->side_hited == 'S')
-// 		img->color = 15412998;
-// 	if (img->side_hited == 'E')
-// 		img->color = 7921807;
-// 	if (img->side_hited == 'W')
-// 		img->color = 16169275;
-// }
 
-// void verLine(t_data *img)
-// {
-//     int y;
-// 	int y_max;
+void	draw(t_data *img)
+{
+	if (img->side == 0)
+		img->tex_y = img->stepY > 0 ? ((int)img->texpos &
+			img->no_height - 1) :
+		((int)img->texpos & img->so_height - 1);
+	else if (img->side == 1)
+		img->tex_y = img->stepX < 0 ? ((int)img->texpos &
+			img->ea_height - 1) :
+		((int)img->texpos & img->we_height - 1);
+	if (img->side == 0)
+		img->color = img->stepY > 0 ? img->data_no[img->no_height
+			* img->tex_y + img->tex_x] :
+			img->data_so[img->so_height * img->tex_y + img->tex_x];
+	else if (img->side == 1)
+	{
+		if (img->ea_height * img->tex_y + img->tex_x <
+			img->ea_height * img->ea_width)
+		{
+			img->color = img->stepX < 0 ?
+				img->data_ea[img->ea_height * img->tex_y +
+			img->tex_x] : img->data_we[img->we_height * img->tex_y
+			+ img->tex_x];
+		}
+	}
+	img->texpos += img->step;
+}
 
-//     if (img->drawEnd < img->drawStart)
-//     {
-// 		y = img->drawEnd;
-// 		y_max = img->drawStart;
-//     }
-// 	else
-// 	{
-// 		y = img->drawStart;
-// 		y_max = img->drawEnd;
-// 	}
-// 	if (y >= 0)
-// 	{
-// 		while (y < y_max)
-// 		{
-// 			my_mlx_pixel_put(img, img->x, y, img->color);
-// 			y++;
-// 		}
-// 	}
-// }
+void		draw_floor_ceiling(t_data *img)
+{
+	int		i;
+	int		j;
+
+	j = -1;
+	i = -1;
+	img->x = -1;
+	while (++j < img->sHeight / 2)
+	{
+		i = -1;
+		while (++i < img->sWidth)
+			img->addr[j * img->sWidth + i] = img->color_ceiling;
+	}
+	while (j < img->sHeight)
+	{
+		i = -1;
+		while (++i < img->sWidth)
+			img->addr[j * img->sWidth + i] = img->color_floor;
+		j++;
+	}
+}

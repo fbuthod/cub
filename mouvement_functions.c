@@ -14,11 +14,8 @@
 
 void move(t_data *img)
 {
-    /*if (img->nb_down_key >= 2)
-        img->moveSpeed = img->moveSpeed / 2;
-    
-    else
-        img->moveSpeed = 0.1;*/
+    img->moveSpeed = img->frameTime * 3.0;
+    img->rotSpeed = img->frameTime * 3.0;
     if (img->move_down == 1)
     {
         if(img->worldMap[(int)(img->posY - img->dirY * img->moveSpeed)][(int)(img->posX)] == '0')

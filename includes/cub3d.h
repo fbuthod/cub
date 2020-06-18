@@ -28,6 +28,7 @@
 
 typedef struct  s_data 
 {
+    int lol;
     void        *mlx;
     void        *mlx_win;
     void        *img;
@@ -73,6 +74,8 @@ typedef struct  s_data
     int         drawStart;
     int         drawEnd;
     int         color;
+    int         color_ceiling;
+    int         color_floor;
     double 		moveSpeed;
     double 		rotSpeed;
     double 		frameTime;
@@ -94,10 +97,55 @@ typedef struct  s_data
     char		**worldMap;
     int			countLine;
 	char		*cardinal;
+    int         tracked;
 
 	char		side_hited;
 
+    void		*img_ptr;
+    int         *img_data;
+    int			*data_no;
+	int			*data_so;
+	int			*data_we;
+	int			*data_ea;
+    int			*data_sprite;
+    int         texWidth;
+    int         texHeight;
+    int		    size_line;
+    void		*img_no_ptr;
+    void		*img_so_ptr;
+    void		*img_we_ptr;
+    void		*img_ea_ptr;
+    void		*sprite_ptr;
+    int			no_width;
+	int			no_height;
+	int			so_width;
+	int			so_height;
+	int			we_width;
+	int			we_height;
+	int			ea_width;
+	int			ea_height;
+	int			sp_width;
+	int			sp_height;
+	int			sp_w;
+	int			sp_h;
+    char        *north;
+    char        *south;
+    char        *west;
+    char        *east;
+    char        *sprite;
+    double		wallx;
+    int			tex_x;
+	int			tex_y;
+    double		texpos;
+    double		step;
+    double		*zbuffer;
 }				t_data;
+
+typedef union
+{
+	int				color;
+	char			argb[4];
+}					t_color;
 
 //int		main();
 int 	main(int ac, char **av);
@@ -132,6 +180,7 @@ void	camera_init(t_data *bag);
 void	display_init(t_data *img);
 void	ft_init(t_data *img);
 void	window_init(t_data *img);
+void	init_colors(t_data *img);
 
 //display functions
 void	display(t_data *img);
@@ -159,7 +208,16 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		event_key_up(int keycode, t_data *img);
 int		event_key_down(int keycode, t_data *img);
 void    event_key( int keycode, t_data *img, int code);
-int    calculate(t_data *img);
+int     calculate(t_data *img);
 void    move(t_data *img);
+
+void	draw(t_data *img);
+
+void		init_texture(t_data *img);
+void		draw_floor_ceiling(t_data *img);
+
+void		texture(t_data *img);
+
+void		exit_texture(t_data *img);
 
 #endif

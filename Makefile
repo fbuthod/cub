@@ -46,6 +46,9 @@ SRCS	=	cub3d.c \
 			parser_resolution.c \
 			parser_texture.c \
 			parser.c \
+			init_texture.c \
+			texture.c \
+			
 
 # SRCS	=	test.c
 

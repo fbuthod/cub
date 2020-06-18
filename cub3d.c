@@ -38,9 +38,12 @@ int main(int ac, char **av)
     parser(&img, av[1]);
 	window_init(&img);
 	camera_init(&img);
-	display(&img);
-	mlx_put_image_to_window(img.mlx, img.mlx_win, img.img, 0, 0);
 	fps_count(&img);
+	if (!(img.zbuffer = malloc(sizeof(double) * img.sWidth)))
+		return (0);
+	init_colors(&img);
+	init_texture(&img);
+	display(&img);
     mlx_hook(img.mlx_win, 2,  (1L << 0), event_key_down, &img);
 	mlx_hook(img.mlx_win, 3,  (1L << 1), event_key_up, &img);
 	mlx_loop_hook(img.mlx, calculate, &img);

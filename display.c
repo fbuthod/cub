@@ -14,14 +14,19 @@
 
 void	display(t_data *img)
 {
-	img->x = 0;
-    while (img->x < img->sWidth)
+	draw_floor_ceiling(img);
+    while (++img->x < img->sWidth)
     {
         setup_raytracer(img);
         step_side_distance(img);
         DDA_calculs(img);
-        print_wall(img);
-		img->x++;
+        texture(img);
+		while (img->drawStart <= img->drawEnd)
+		{
+			draw(img);
+			img->addr[img->drawStart++ * img->sWidth + img->x] = img->color;
+		}
+		img->zbuffer[img->x] = img->perpWallDist;
     }
 }
 
