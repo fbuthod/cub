@@ -12,7 +12,7 @@
 
 #include "includes/cub3d.h"
 
-int	check_arg(int argc, char **argv)
+int	check_arg(int argc, char **argv, t_data *img)
 {
 	char *ptr;
 
@@ -37,15 +37,10 @@ int	check_arg(int argc, char **argv)
 				return (-1);
 			}
 		}
-		else if (ft_strcmp(argv[1], "--save") == 0)
-		{
-			ft_printf("Error\nWrong argument.");
-			return (-1);
-		}
 	}
 	if (argc == 3)
 	{
-		if ((ptr = ft_strrchr(argv[2], '.')))
+		if ((ptr = ft_strrchr(argv[1], '.')))
 		{
 			if (find_cub_extension(ptr) != 0)
 			{
@@ -53,7 +48,12 @@ int	check_arg(int argc, char **argv)
 				return (-1);
 			}
 		}
-		if (ft_strcmp(argv[1], "--save") == 0)
+		if (ft_strncmp(argv[2], "--save", 6) == 0)
+		{
+			img->screenshot = 1;
+			return(0);
+		}
+		else
 		{
 			ft_printf("Error\nWrong argument.");
 			return (-1);
@@ -75,4 +75,10 @@ int find_cub_extension(char *target)
 	if (target[3] != 'b' && target[3] != 'B')
 		return (-1);
 	return (0);
+}
+
+void	ft_memdel(void **str)
+{
+	free(*str);
+	*str = NULL;
 }

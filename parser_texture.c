@@ -17,7 +17,7 @@ t_data		*no_texture_fill(t_data *bag, char *line)
 	int i;
 
 	i = find_dot(line);
-	bag->path_to_north_texture = ft_strdup(line + i);
+	bag->north = ft_strdup(line + i);
 	return (bag);
 }
 
@@ -26,7 +26,7 @@ t_data		*so_texture_fill(t_data *bag, char *line)
 	int i;
 
 	i = find_dot(line);
-	bag->path_to_south_texture = ft_strdup(line + i);
+	bag->south = ft_strdup(line + i);
 	return (bag);
 }
 
@@ -35,7 +35,7 @@ t_data		*we_texture_fill(t_data *bag, char *line)
 	int i;
 
 	i = find_dot(line);
-	bag->path_to_west_texture = ft_strdup(line + i);
+	bag->west = ft_strdup(line + i);
 	return (bag);
 }
 
@@ -44,7 +44,7 @@ t_data		*ea_texture_fill(t_data *bag, char *line)
 	int i;
 
 	i = find_dot(line);
-	bag->path_to_east_texture = ft_strdup(line + i);
+	bag->east = ft_strdup(line + i);
 	return (bag);
 }
 
@@ -53,7 +53,7 @@ t_data		*sprite_texture_fill(t_data *bag, char *line)
 	int i;
 
 	i = find_dot(line);
-	bag->path_to_sprite_texture = ft_strdup(line + i);
+	bag->sprite = ft_strdup(line + i);
 	return (bag);
 }
 

@@ -48,6 +48,9 @@ SRCS	=	cub3d.c \
 			parser.c \
 			init_texture.c \
 			texture.c \
+			sprite.c \
+			screenshot.c \
+			gest_error.c
 			
 
 # SRCS	=	test.c
@@ -83,7 +86,7 @@ ifeq (${OS}, Darwin)
 endif
 ifeq (${OS}, Darwin)
 			# ${CC} -o $@ ${OBJS} -L./minilibx/ $(MLX)
-			$(CC) $(CFLAGS) -o $@ $(SRCS) $(PRINTFS) -Lminilibx -Lft_printf $(MLX)
+			$(CC) $(CFLAGS) -o $@ $(SRCS) $(PRINTFS) -Lminilibx -Lft_printf $(MLX) -fsanitize=leak -g3
 else
 			# ${CC} -o $@ ${OBJS} -L./minilibx/ $(MLX_L)
 			$(CC) $(CFLAGS) -o $@ $(SRCS) $(PRINTFS) -Lminilibx -Lft_printf $(MLX_L)

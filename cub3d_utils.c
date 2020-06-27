@@ -14,28 +14,6 @@
 
 int		close_window(t_data *data)
 {
-    mlx_destroy_window(data->mlx, data->mlx_win);
-    exit(1);
+    gest_error(data, 7);
     return (0);
-}
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-    char    *dst;
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
-}
-
-void	ft_img_dark(t_data *img)
-{
-	int	i;
-	int	j;
-	j = -1;
-	img->color = 0x000000;
-	while (++j < img->sHeight)
-	{
-		i = -1;
-		while (++i < img->sWidth)
-			my_mlx_pixel_put(img, i, j, img->color);
-	}
 }

@@ -31,25 +31,25 @@ void	parser(t_data *img, char *av)
     close(fd);
 }
 
-void	if_forest(t_data *bag, char *line)
+void	if_forest(t_data *img, char *line)
 {
 	int i;
 
 	i = 0;
     if (line[i] == 'R')
-        bag = resolution_fill(bag, line);
+        img = resolution_fill(img, line);
     else if (line[i] == 'N' && line[i + 1] == 'O')
-        bag = no_texture_fill(bag, line);
+        img = no_texture_fill(img, line);
     else if (line[i] == 'S' && line[i + 1] == 'O')
-        bag = so_texture_fill(bag, line);
+        img = so_texture_fill(img, line);
     else if (line[i] == 'W' && line[i + 1] == 'E')
-        bag = we_texture_fill(bag, line);
+        img = we_texture_fill(img, line);
     else if (line[i] == 'E' && line[i + 1] == 'A')
-        bag = ea_texture_fill(bag, line);
+        img = ea_texture_fill(img, line);
     else if (line[i] == 'S' && line[i + 1] != 'O')
-        bag = sprite_texture_fill(bag, line);
+        img = sprite_texture_fill(img, line);
     else if (line[i] == 'F' || line[i] == 'C')
-        bag = (line[i] == 'F') ? floor_fill(bag, line) : ceiling_fill(bag, line);
+        img = (line[i] == 'F') ? floor_fill(img, line) : ceiling_fill(img, line);
     else if (ft_isdigit(line[i]) || line[i] == ' ' || line[i] == '\t')
-        parsing_map(line, bag);
+        parsing_map(line, img);
 }

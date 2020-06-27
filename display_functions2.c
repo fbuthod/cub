@@ -14,28 +14,29 @@
 
 void DDA_algorithm(t_data *img)
 {
+	img->hit = 0;
 	while (img->hit == 0)
 	{
-		if (img->sideDistX < img->sideDistY)
+		if (img->sideDistX <= img->sideDistY)
 		{
 			img->sideDistX += img->deltaDistX;
 			img->mapX += img->stepX;
-			img->side = 0;
+			img->side = 1;
 		}
 		else
 		{
 			img->sideDistY += img->deltaDistY;
 			img->mapY += img->stepY;
-			img->side = 1;
+			img->side = 0;
 		}
-		if (img->worldMap[img->mapY][img->mapX] > '0')
+		if (img->worldMap[img->mapY][img->mapX] == '1')
 			img->hit = 1;
 	}
 }
 
 void	fisheye_adjustment(t_data *img)
 {
-    if (img->side == 0)
+    if (img->side == 1)
         img->perpWallDist = ((img->mapX - img->posX +
 				(1 - img->stepX) / 2) / img->rayDirX);
     else

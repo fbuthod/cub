@@ -53,7 +53,6 @@ int		event_key_up(int keycode, t_data *img)
 int	calculate(t_data *img)
 {
 	move(img);
-	ft_img_dark(img);
     mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
     display(img);
 	fps_count(img);

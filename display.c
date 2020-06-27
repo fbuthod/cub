@@ -14,6 +14,9 @@
 
 void	display(t_data *img)
 {
+	int		i;
+	i = 0;
+	img->x = -1;
 	draw_floor_ceiling(img);
     while (++img->x < img->sWidth)
     {
@@ -28,6 +31,16 @@ void	display(t_data *img)
 		}
 		img->zbuffer[img->x] = img->perpWallDist;
     }
+	img->x = 0;
+	while (img->x < img->sp_nbr)
+	{
+		calculate_sprite(img, img->x);
+		draw_sprite(img, i);
+		img->x++;
+	}
+	if (img->screenshot == 1)
+		save_bitmap("bitmap.bmp", img);
+
 }
 
 void	setup_raytracer(t_data *img)
@@ -49,10 +62,4 @@ void	DDA_calculs(t_data *img)
     fisheye_adjustment(img);
     height_wall(img);
 	fill_stripe(img);
-}
-
-void	print_wall(t_data *img)
-{
-	color_wall(img);
-	verLine(img);
 }

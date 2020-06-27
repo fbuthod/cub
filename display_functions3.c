@@ -12,39 +12,6 @@
 
 #include "includes/cub3d.h"
 
-void	color_wall(t_data *img)
-{
-	char i;
-
-	i = img->worldMap[img->mapY][img->mapX];
-	if (i == '1')
-		img->color = 0xFF0000;
-	if (img->side == 1)
-		img->color = img->color >> 2;
-}
-void	verLine(t_data *img)
-{
-	int y;
-
-	y = img->drawStart;
-	while (y < img->drawEnd)
-	{
-		my_mlx_pixel_put(img, img->x, y, img->color);
-		y++;
-	}
-
-	if (img->drawEnd < 0)
-		img->drawEnd = img->sHeight;
-	
-	y = img->drawEnd;
-	while (y < img->sHeight)
-	{
-		my_mlx_pixel_put(img, img->x, y, 0xffff40);
-		my_mlx_pixel_put(img, img->x, (img->sHeight - y - 1), 0x7eb6ff);
-		y++;
-	}
-}
-
 void	draw(t_data *img)
 {
 	if (img->side == 0)
@@ -93,5 +60,46 @@ void		draw_floor_ceiling(t_data *img)
 		while (++i < img->sWidth)
 			img->addr[j * img->sWidth + i] = img->color_floor;
 		j++;
+	}
+}
+
+static void	draw_sprite_next(t_data *img)
+{
+	img->tex_y = (int)((img->calc * img->sp_height) / img->sp_h) / 256;
+	if (img->tex_x < 0)
+		img->tex_x = 0;
+	if (img->tex_y < 0)
+		img->tex_y = 0;
+	if (img->sp_width * img->tex_y + img->tex_x < img->sp_width *
+		img->sp_height)
+		img->color = img->data_sprite[img->sp_width *
+			img->tex_y + img->tex_x];
+}
+
+void		draw_sprite(t_data *img, int i)
+{
+	while (img->drawstartx < img->drawendx && img->drawstartx < img->sWidth)
+	{
+		i = img->drawstarty;
+		img->tex_x = (int)(256 * (img->drawstartx - (-img->sp_w / 2
+			+ img->sp_screen)) * img->sp_width / img->sp_w) / 256;
+		if (img->tex_x < 0)
+			img->tex_x = 0;
+		if (img->tex_y < 0)
+			img->tex_y = 0;
+		if (img->drawstartx < img->sWidth && img->transy > 0 &&
+		img->drawstartx > 0 && img->transy < img->zbuffer[img->drawstartx])
+		{
+			while (++i < img->drawendy && i < img->sHeight)
+			{
+				img->calc = i * 256 - img->sHeight * 128 + img->sp_h * 128;
+				draw_sprite_next(img);
+				if ((img->color & 0xffffff) != 0 && img->sWidth *
+					img->sHeight > i * img->sWidth + img->drawstartx)
+					img->addr[i * img->sWidth +
+						img->drawstartx] = img->color;
+			}
+		}
+		img->drawstartx++;
 	}
 }

@@ -16,6 +16,7 @@ void	ft_init(t_data *img)
 {
     img->mlx = 0;
 	img->x = 0;
+	img->i = 0;
     img->mapX = 0;
     img->mapY = 0;
     img->sideDistX = 0;
@@ -55,23 +56,25 @@ void	ft_init(t_data *img)
 	img->rotation_right = 0;
 	img->move_directional_left = 0;
     img->move_directional_right = 0;
-	img->south = "./texture/bluestone.xpm";
-	img->north = "./texture/eagle.xpm";
-	img->east = "./texture/greystone.xpm";
-	img->west = "./texture/redbrick.xpm";
+	img->south = NULL;
+	img->north = NULL;
+	img->east = NULL;
+	img->west = NULL;
 	img->sprite = NULL;
 	img->texWidth = -1;
 	img->texHeight = -1;
 	img->tracked = 0;
+
+	img->sp_width = 0;
+	img->sp_height = 0;
+	img->sp_nbr = 5;
+
+	img->screenshot = 0;
+
 }
 
 void	parse_init(t_data *img)
 {
-	img->path_to_north_texture = NULL;
-	img->path_to_south_texture = NULL;
-	img->path_to_west_texture = NULL;
-	img->path_to_east_texture = NULL;
-	img->path_to_sprite_texture = NULL;
 	img->floor_color_R = 0;
 	img->floor_color_G = 0;
 	img->floor_color_B = 0;
@@ -144,8 +147,7 @@ void	window_init(t_data *img)
 	img->mlx = mlx_init();
     img->mlx_win = mlx_new_window(img->mlx, img->sWidth, img->sHeight, "Cub3D");
     img->img = mlx_new_image(img->mlx, img->sWidth, img->sHeight);
-    img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
-								&img->line_length, &img->endian);
+    img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
 }
 
 void	init_colors(t_data *img)
@@ -153,14 +155,22 @@ void	init_colors(t_data *img)
 	t_color	color;
 
 	color.argb[3] = 0;
-
-	color.argb[0] = -78;
-	color.argb[1] = 34;
-	color.argb[2] = 34;
+	color.argb[0] = ft_atoi("80");
+	color.argb[1] = ft_atoi("50");
+	color.argb[2] = ft_atoi("200");
+	img->color_ceiling = color.color;
+	
+	color.argb[0] = ft_atoi("100");
+	color.argb[1] = ft_atoi("100");
+	color.argb[2] = ft_atoi("100");
 	img->color_floor = color.color;
 	
-	color.argb[0] = -16;
-	color.argb[1] = -128;
-	color.argb[2] = -128;
-	img->color_ceiling = color.color;
+}
+
+void		alloc_sprite_order(t_data *img)
+{
+	img->sp_order = (int *)malloc(sizeof(int) * (img->sp_nbr + 1));
+	img->sp_dist = (double *)malloc(sizeof(double) * (img->sp_nbr + 1));
+	img->sp_order[img->sp_nbr] = '\0';
+	img->sp_dist[img->sp_nbr] = '\0';
 }

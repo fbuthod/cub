@@ -32,7 +32,7 @@ typedef struct  s_data
     void        *mlx;
     void        *mlx_win;
     void        *img;
-    char        *addr;
+    int         *addr;
     int         bits_per_pixel;
     int         line_length;
     int         endian;
@@ -46,6 +46,7 @@ typedef struct  s_data
     int         nb_down_key;
 
 	int			x;
+    int         i;
     double      posX;
     double      posY;
     double      dirX;
@@ -80,14 +81,8 @@ typedef struct  s_data
     double 		rotSpeed;
     double 		frameTime;
 
-
 	int			sWidth;
     int			sHeight;
-    char		*path_to_north_texture;
-    char		*path_to_south_texture;
-    char		*path_to_west_texture;
-    char		*path_to_east_texture;
-    char		*path_to_sprite_texture;
     int			floor_color_R;
     int			floor_color_G;
     int			floor_color_B;
@@ -133,24 +128,70 @@ typedef struct  s_data
     char        *west;
     char        *east;
     char        *sprite;
+    char        *path_to_sprite_texture;
     double		wallx;
     int			tex_x;
 	int			tex_y;
     double		texpos;
     double		step;
     double		*zbuffer;
+	int				drawstartx;
+	int				drawendx;
+	int				drawstarty;
+	int				drawendy;
+	int				sp_screen;
+	double			transx;
+	double			transy;
+	double			inv_det;
+	double			sp_x;
+	double			sp_y;
+	int				sp_nbr;
+	int				*sp_order;
+	double			*sp_dist;
+    size_t			calc;
+
+    int             screenshot;
 }				t_data;
 
 typedef union
 {
 	int				color;
 	char			argb[4];
-}					t_color;
+}   				t_color;
+
+typedef struct		s_sprites
+{
+	double		x;
+	double		y;
+}					t_sprites;
+
+typedef struct		s_bpm
+{
+	unsigned char	bitmap_type[2];
+	int				file_size;
+	short			reserved1;
+	short			reserved2;
+	unsigned int	offset_bits;
+}					t_bpm;
+
+typedef struct		s_bpm2
+{
+	unsigned int	size_header;
+	unsigned int	width;
+	unsigned int	height;
+	short int		planes;
+	short int		bit_count;
+	unsigned int	compression;
+	unsigned int	image_size;
+	unsigned int	ppm_x;
+	unsigned int	ppm_y;
+	unsigned int	clr_used;
+	unsigned int	clr_important;
+}					t_bpm2;
 
 //int		main();
 int 	main(int ac, char **av);
 void	test(t_data *img);
-void	ft_img_dark(t_data *img);
 void	move_directional_right(t_data *img);
 void	move_directional_left(t_data *img);
 void	fps_count(t_data *img);
@@ -161,17 +202,17 @@ int		parsing_map(char *line, t_data *bag);
 int		count_valid_char(char *line);
 t_data	*floor_fill(t_data *bag, char *line);
 t_data	*ceiling_fill(t_data *bag, char *line);
-t_data	*no_texture_fill(t_data *bag, char *line);
-t_data	*so_texture_fill(t_data *bag, char *line);
-t_data	*we_texture_fill(t_data *bag, char *line);
-t_data	*ea_texture_fill(t_data *bag, char *line);
+t_data	*no_texture_fill(t_data *img, char *line);
+t_data	*so_texture_fill(t_data *img, char *line);
+t_data	*we_texture_fill(t_data *img, char *line);
+t_data	*ea_texture_fill(t_data *img, char *line);
 t_data	*sprite_texture_fill(t_data *bag, char *line);
 int		find_dot(char *line);
 t_data	*resolution_fill(t_data *bag, char *line);
 void	if_forest(t_data *bag, char *line);
 
 //error functions
-int	check_arg(int argc, char **argv);
+int	check_arg(int argc, char **argv, t_data *img);
 int find_cub_extension(char *target);
 
 //init functions
@@ -197,13 +238,9 @@ void	fisheye_adjustment(t_data *img);
 void	height_wall(t_data *img);
 void	fill_stripe(t_data *img);
 void	print_wall(t_data *img);
-void	color_wall(t_data *img);
-void 	verLine(t_data *img);
 
 //cub3d utils
 int		close_window(t_data *data);
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 int		event_key_up(int keycode, t_data *img);
 int		event_key_down(int keycode, t_data *img);
@@ -217,6 +254,16 @@ void		init_texture(t_data *img);
 void		draw_floor_ceiling(t_data *img);
 
 void		texture(t_data *img);
+
+void		calculate_sprite(t_data *img, int x);
+void		draw_sprite(t_data *img, int i);
+void		alloc_sprite_order(t_data *img);
+
+void		save_bitmap(char *filename, t_data *img);
+
+void        gest_error(t_data *img, int code_erreur);
+void        ft_memdel(void **str);
+
 
 void		exit_texture(t_data *img);
 

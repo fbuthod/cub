@@ -30,23 +30,24 @@ void	fps_count(t_data *img)
 
 int main(int ac, char **av)
 {
-    t_data	img;
+    t_data	img[1];
 
-    ft_init(&img);
-	if (check_arg(ac, av) != 0)
+    ft_init(img);
+	alloc_sprite_order(img);
+	if (check_arg(ac, av, img) != 0)
+		return(0);
+    parser(img, av[1]);
+	window_init(img);
+	camera_init(img);
+	fps_count(img);
+	if (!(img->zbuffer = malloc(sizeof(double) * img->sWidth)))
 		return (0);
-    parser(&img, av[1]);
-	window_init(&img);
-	camera_init(&img);
-	fps_count(&img);
-	if (!(img.zbuffer = malloc(sizeof(double) * img.sWidth)))
-		return (0);
-	init_colors(&img);
-	init_texture(&img);
-	display(&img);
-    mlx_hook(img.mlx_win, 2,  (1L << 0), event_key_down, &img);
-	mlx_hook(img.mlx_win, 3,  (1L << 1), event_key_up, &img);
-	mlx_loop_hook(img.mlx, calculate, &img);
-	mlx_loop(img.mlx);
+	init_colors(img);
+	init_texture(img);
+	display(img);
+    mlx_hook(img->mlx_win, 2,  (1L << 0), event_key_down, img);
+	mlx_hook(img->mlx_win, 3,  (1L << 1), event_key_up, img);
+	mlx_loop_hook(img->mlx, calculate, (void *)img);
+	mlx_loop(img->mlx);
     return (0);
 }

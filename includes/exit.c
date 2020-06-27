@@ -47,6 +47,5 @@ void		exit_texture(t_data *img)
 	}
 	ft_exit_next(img);
 	exit(1);*/
-	printf("plop : %d", img->x);
 	//return (0);
 }
