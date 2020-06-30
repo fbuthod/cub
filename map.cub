@@ -5,7 +5,7 @@ SO ./texture/eagle.xpm
 WE ./texture/greystone.xpm
 EA ./texture/redbrick.xpm
 
-S ./texture/sprite.xpm
+S ./texture/sunax.xpm
 F 110,100,0
 C 115,10,0
 

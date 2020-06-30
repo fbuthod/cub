@@ -39,7 +39,10 @@ void	display(t_data *img)
 		img->x++;
 	}
 	if (img->screenshot == 1)
+	{
 		save_bitmap("bitmap.bmp", img);
+		close_window(img);
+	}
 
 }
 
