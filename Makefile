@@ -50,7 +50,8 @@ SRCS	=	cub3d.c \
 			texture.c \
 			sprite.c \
 			screenshot.c \
-			gest_error.c
+			gest_error.c \
+			check_map.c
 			
 
 # SRCS	=	test.c

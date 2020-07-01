@@ -12,40 +12,44 @@
 
 #include "includes/cub3d.h"
 
-t_data       *floor_fill(t_data *bag, char *line)
+void       floor_fill(t_data *img, char *line)
 {
+    t_color	color;
 	int i;
 
 	i = 0;
+    color.argb[3] = 0;
     while(!ft_isdigit(line[i]))
         i++;
-    bag->floor_color_R = ft_atoi(line + i);
+    color.argb[0] = ft_atoi(line + i);
     while(ft_isdigit(line[i]))
         i++;
     i++;
-    bag->floor_color_G = ft_atoi(line + i);
+    color.argb[1] = ft_atoi(line + i);
     while (ft_isdigit(line[i]))
         i++;
     i++;
-    bag->floor_color_B = ft_atoi(line + i);
-    return (bag);
+    color.argb[2] = ft_atoi(line + i);
+    img->color_floor = color.color;
 }
 
-t_data       *ceiling_fill(t_data *bag, char *line)
+void       ceiling_fill(t_data *img, char *line)
 {
+    t_color	color;
 	int i;
 
 	i = 0;
+    color.argb[3] = 0;
 	while(!ft_isdigit(line[i]))
         i++;
-    bag->ceiling_color_R = ft_atoi(line + i);
+    color.argb[0] = ft_atoi(line + i);
     while(ft_isdigit(line[i]))
         i++;
     i++;
-    bag->ceiling_color_G = ft_atoi(line + i);
+    color.argb[1] = ft_atoi(line + i);
     while (ft_isdigit(line[i]))
         i++;
     i++;
-    bag->ceiling_color_B = ft_atoi(line + i);
-    return (bag);
+    color.argb[2] = ft_atoi(line + i);
+    img->color_ceiling = color.color;
 }

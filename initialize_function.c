@@ -95,42 +95,34 @@ void	camera_init(t_data *bag)
 	ret = -1;
 	if (bag->worldMap != NULL)
 	{
-		while (bag->worldMap[i])
-		{
-			if ((bag->cardinal = ft_strchr(bag->worldMap[i], 'N')))
-				{
-					bag->dirX = 0;
-					bag->dirY = -1;
-					bag->planeX = 0.66;
-					bag->planeY = 0.0;
-					break ;
-				}
-			if ((bag->cardinal = ft_strchr(bag->worldMap[i], 'S')))
-				{
-					bag->dirX = 0;
-					bag->dirY = 1;
-					bag->planeX = -0.66;
-					bag->planeY = 0.0;
-					break ;
-				}
-			if ((bag->cardinal = ft_strchr(bag->worldMap[i], 'E')))
-				{
-					bag->dirX = 1;
-					bag->dirY = 0;
-					bag->planeX = 0.0;
-					bag->planeY = 0.66;
-					break ;
-				}
-			if ((bag->cardinal = ft_strchr(bag->worldMap[i], 'W')))
-				{
-					bag->dirX = -1;
-					bag->dirY = 0;
-					bag->planeX = 0.0;
-					bag->planeY = -0.66;
-					break ;
-				}
-			i++;
-		}
+		if (bag->dir_player == 'N')
+			{
+				bag->dirX = 0;
+				bag->dirY = -1;
+				bag->planeX = 0.66;
+				bag->planeY = 0.0;
+			}
+		if (bag->dir_player == 'S')
+			{
+				bag->dirX = 0;
+				bag->dirY = 1;
+				bag->planeX = -0.66;
+				bag->planeY = 0.0;
+			}
+		if (bag->dir_player == 'E')
+			{
+				bag->dirX = 1;
+				bag->dirY = 0;
+				bag->planeX = 0.0;
+				bag->planeY = 0.66;
+			}
+		if (bag->dir_player == 'W')
+			{
+				bag->dirX = -1;
+				bag->dirY = 0;
+				bag->planeX = 0.0;
+				bag->planeY = -0.66;
+			}
 		if (bag->cardinal != NULL)
 		{
 			bag->posY = (double)i;
@@ -148,23 +140,6 @@ void	window_init(t_data *img)
     img->mlx_win = mlx_new_window(img->mlx, img->sWidth, img->sHeight, "Cub3D");
     img->img = mlx_new_image(img->mlx, img->sWidth, img->sHeight);
     img->addr = (int *)mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
-}
-
-void	init_colors(t_data *img)
-{
-	t_color	color;
-
-	color.argb[3] = 0;
-	color.argb[0] = ft_atoi("80");
-	color.argb[1] = ft_atoi("50");
-	color.argb[2] = ft_atoi("200");
-	img->color_ceiling = color.color;
-	
-	color.argb[0] = ft_atoi("100");
-	color.argb[1] = ft_atoi("100");
-	color.argb[2] = ft_atoi("100");
-	img->color_floor = color.color;
-	
 }
 
 void		alloc_sprite_order(t_data *img)

@@ -33,16 +33,15 @@ int main(int ac, char **av)
     t_data	img[1];
 
     ft_init(img);
-	alloc_sprite_order(img);
 	if (check_arg(ac, av, img) != 0)
 		return(0);
     parser(img, av[1]);
+	check_map(img);
 	window_init(img);
 	camera_init(img);
 	fps_count(img);
 	if (!(img->zbuffer = malloc(sizeof(double) * img->sWidth)))
 		return (0);
-	init_colors(img);
 	init_texture(img);
 	display(img);
     mlx_hook(img->mlx_win, 2,  (1L << 0), event_key_down, img);

@@ -1,6 +1,6 @@
 #include "includes/cub3d.h"
 
-/*static void	ft_exit_next(t_data *img)
+/*static void	close_window_next(t_data *img)
 {
 	int i;
 
@@ -45,7 +45,7 @@ void		exit_texture(t_data *img)
 		if (img->tracked > 6 && img->sprite_ptr != 0)
 			mlx_destroy_image(img->mlx, img->sprite_ptr);
 	}
-	ft_exit_next(img);
+	close_window_next(img);
 	exit(1);*/
 	//return (0);
 }

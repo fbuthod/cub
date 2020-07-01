@@ -48,8 +48,10 @@ void	if_forest(t_data *img, char *line)
         img = ea_texture_fill(img, line);
     else if (line[i] == 'S' && line[i + 1] != 'O')
         img = sprite_texture_fill(img, line);
-    else if (line[i] == 'F' || line[i] == 'C')
-        img = (line[i] == 'F') ? floor_fill(img, line) : ceiling_fill(img, line);
+    else if (line[i] == 'C')
+        ceiling_fill(img, line);
+    else if (line[i] == 'F')
+        floor_fill(img, line);
     else if (ft_isdigit(line[i]) || line[i] == ' ' || line[i] == '\t')
         parsing_map(line, img);
 }

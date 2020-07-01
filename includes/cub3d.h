@@ -149,6 +149,9 @@ typedef struct  s_data
 	int				*sp_order;
 	double			*sp_dist;
     size_t			calc;
+    char            dir_player;
+
+    int             worldMap_false;
 
     int             screenshot;
 }				t_data;
@@ -200,8 +203,8 @@ void	fps_count(t_data *img);
 void	parser(t_data *img, char *av);
 int		parsing_map(char *line, t_data *bag);
 int		count_valid_char(char *line);
-t_data	*floor_fill(t_data *bag, char *line);
-t_data	*ceiling_fill(t_data *bag, char *line);
+void    floor_fill(t_data *img, char *line);
+void    ceiling_fill(t_data *img, char *line);
 t_data	*no_texture_fill(t_data *img, char *line);
 t_data	*so_texture_fill(t_data *img, char *line);
 t_data	*we_texture_fill(t_data *img, char *line);
@@ -221,7 +224,6 @@ void	camera_init(t_data *bag);
 void	display_init(t_data *img);
 void	ft_init(t_data *img);
 void	window_init(t_data *img);
-void	init_colors(t_data *img);
 
 //display functions
 void	display(t_data *img);
@@ -264,7 +266,7 @@ void		save_bitmap(char *filename, t_data *img);
 void        gest_error(t_data *img, int code_erreur);
 void        ft_memdel(void **str);
 
-
 void		exit_texture(t_data *img);
+void        check_map(t_data *img);
 
 #endif
